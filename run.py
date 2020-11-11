@@ -34,7 +34,7 @@ with poll.getresponse() as response:
                             tes = cmd.replace("!cbc: ", "")
                             if chatId in admin:
                                 try:
-                                    contactBroadcast(chatId, str(tes)+"\n\n\nFree BC OA\n[Powered by SDK]")
+                                    contactBroadcast(chatId, str(tes)+"\n\n\nFree BC OA\n[by Kambing]")
                                 except Exception as asu:
                                     client.sendMessage(chatId, str(asu))
                             else:
