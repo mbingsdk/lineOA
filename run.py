@@ -2,6 +2,17 @@ from function import *
 
 client = Client()
 poll = client.openPolling()
+
+admin = ["U468b5a4827b5620266b9b11502619be6"]
+
+def contactBroadcast(fr, text):
+    c = client.getContactList()
+    for i in range(len(c)):
+        to = c[i]['contactId']
+        time.sleep(1)
+        client.sendMessage(to, text)
+    client.sendMessage(fr, text)
+
 with poll.getresponse() as response:
     while not response.closed:
         for chunk in response:
@@ -15,7 +26,19 @@ with poll.getresponse() as response:
                         text = msg["text"]
                         cmd = text.lower()
                         if cmd == "hello":
-                            client.sendMessage(chatId, "hai")
+                            if chatId in admin:
+                                client.sendMessage(chatId, "halo")
+                            else:
+                                client.sendMessage(chatId, "hai")
+                        elif cmd.startswith("!cbc: "):
+                            tes = cmd.replace("!cbc: ", "")
+                            if chatId in admin:
+                                try:
+                                    contactBroadcast(chatId, str(tes)+"\n\n\nFree BC OA\n[Powered by SDK]")
+                                except Exception as asu:
+                                    client.sendMessage(chatId, str(asu))
+                            else:
+                                client.sendMessage(chatId, "Hayoo mo ngapain :v")
                             
                 elif event == "chat" and "subEvent" in chunk and chunk["subEvent"] == "chatRead":
                     chatId = chunk["payload"]["source"]["chatId"]
