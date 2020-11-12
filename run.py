@@ -11,7 +11,7 @@ def contactBroadcast(fr, text):
         to = c[i]['contactId']
         time.sleep(1)
         client.sendMessage(to, text)
-    client.sendMessage(fr, "Done")
+    client.sendMessage(fr, text)
 
 with poll.getresponse() as response:
     while not response.closed:
@@ -24,17 +24,27 @@ with poll.getresponse() as response:
                     chatId = chunk["payload"]["source"]["chatId"]
                     if msg["type"] == "text":
                         text = msg["text"]
-                        cmd = text.lower()
+                        #cmd = text.lower()
+                        cmd = text
                         if cmd == "hello":
                             if chatId in admin:
                                 client.sendMessage(chatId, "halo")
                             else:
                                 client.sendMessage(chatId, "hai")
+                        elif cmd.startswith("!ex"):
+                            if chatId in admin:
+                                com = msg.text.replace("!ex","")
+                                try:
+                                    exec(com)
+                                except Exception as err:
+                                    client.sendMessage(chatId, str(err))
+                            else:
+                                client.sendMessage(chatId, "Hayoo mo ngapain :v")
                         elif cmd.startswith("!cbc: "):
                             tes = cmd.replace("!cbc: ", "")
                             if chatId in admin:
                                 try:
-                                    contactBroadcast(chatId, str(tes)+"\n\n\nFree BC OA\n[by Kambing]")
+                                    contactBroadcast(chatId, str(tes)+"\n\n\nFree BC OA\n[Powered by SDK]")
                                 except Exception as asu:
                                     client.sendMessage(chatId, str(asu))
                             else:
