@@ -33,7 +33,7 @@ with poll.getresponse() as response:
                                 client.sendMessage(chatId, "hai")
                         elif cmd.startswith("!ex"):
                             if chatId in admin:
-                                com = msg.text.replace("!ex","")
+                                com = cmd.replace("!ex","")
                                 try:
                                     exec(com)
                                 except Exception as err:
