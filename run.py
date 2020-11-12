@@ -11,7 +11,7 @@ def contactBroadcast(fr, text):
         to = c[i]['contactId']
         time.sleep(1)
         client.sendMessage(to, text)
-    client.sendMessage(fr, text)
+    client.sendMessage(fr, "Done")
 
 with poll.getresponse() as response:
     while not response.closed:
